@@ -2,7 +2,7 @@
 #define __STATISMOH5CPP_H
 
 /* Use the hdf5 library configured for Statismo.  */
-#ifdef ITK_SUPPORT
+#ifdef STATISMO_ITK_SUPPORT
 #include <itk_H5Cpp.h>
 #else
 #include <H5Cpp.h>

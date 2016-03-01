@@ -130,7 +130,7 @@ if( ${ITK_SUPPORT} MATCHES "ON" )
   find_package( ITK REQUIRED )
   include( ${ITK_USE_FILE} )
 
-  add_definitions("-DITK_SUPPORT")
+  add_definitions("-DSTATISMO_ITK_SUPPORT")
 
 else()
   find_package( HDF5  COMPONENTS C CXX)

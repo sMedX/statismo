@@ -41,11 +41,12 @@ endif()
 if( ITK_SUPPORT )
   set( ITK_DIR @ITK_DIR@ )
   find_package( ITK )
+  add_definitions("-DSTATISMO_ITK_SUPPORT")
 endif()
 
 set( statismo_LIBRARIES "@statismo_LIBRARIES@" )
 
-if(MSVC11) #i.e. Visual Studio 2012 
+if(MSVC11) #i.e. Visual Studio 2012
   # Fix for VS2012 that has _VARIADIC_MAX set to 5. Don't set too high because it increases compiler memory usage / compile-time.
   add_definitions( -D_VARIADIC_MAX=10 )
   # Fix for another VS2012 problem: not all TR1 options are automatically detected, therefore we force them here.
