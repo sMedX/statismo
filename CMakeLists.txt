@@ -84,7 +84,8 @@ find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
 if( WIN32 )
-  set( Boost_USE_STATIC_LIBS ON )
+  # disable autolinking in boost
+  add_definitions(-DBOOST_ALL_NO_LIB)
 endif()
 
 set( REQUIRED_BOOST_COMPONENTS thread system date_time filesystem )
