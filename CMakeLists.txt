@@ -57,7 +57,7 @@ set(INSTALL_LIB_DIR lib CACHE PATH "Installation directory for libraries")
 set(INSTALL_BIN_DIR bin CACHE PATH "Installation directory for executables")
 set(INSTALL_INCLUDE_DIR include CACHE PATH
   "Installation directory for header files")
-set(INSTALL_DOC_DIR share/doc/statismo CACHE PATH 
+set(INSTALL_DOC_DIR share/doc/statismo CACHE PATH
   "Installation directory for documentation")
 
 if(WIN32 AND NOT CYGWIN)
@@ -116,9 +116,6 @@ include_directories( ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
 add_definitions( -DBOOST_THREAD_VERSION=3 -DBOOST_FILESYSTEM_VERSION=3 )
 
-find_package( HDF5  COMPONENTS C CXX)
-include_directories( ${HDF5_INCLUDE_DIRS} )
-
 if(WIN32)
   # On Windows, we can only build static libraries, as the dynamic libraries would be
   # missing the accompanying .lib (unless the code is entirely rewritten with __declspec(dllexport) etc.)
@@ -127,16 +124,22 @@ if(WIN32)
   set(statismo_LIB_TYPE STATIC)
 endif()
 
-foreach( _library ${HDF5_LIBRARIES} )
-  get_filename_component( _tempDir${_library} ${_library} PATH )
-  list( APPEND HDF5_LIBRARY_DIR ${_tempDir${_library}} )
-endforeach()
-
 option( ITK_SUPPORT "Build ITK Support" ON )
 
 if( ${ITK_SUPPORT} MATCHES "ON" )
   find_package( ITK REQUIRED )
   include( ${ITK_USE_FILE} )
+
+  add_definitions("-DITK_SUPPORT")
+
+else()
+  find_package( HDF5  COMPONENTS C CXX)
+  include_directories( ${HDF5_INCLUDE_DIRS} )
+
+  foreach( _library ${HDF5_LIBRARIES} )
+    get_filename_component( _tempDir${_library} ${_library} PATH )
+    list( APPEND HDF5_LIBRARY_DIR ${_tempDir${_library}} )
+  endforeach()
 endif()
 
 option( VTK_SUPPORT "Build VTK Support" ON )
