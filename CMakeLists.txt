@@ -118,7 +118,7 @@ endif()
 option( ITK_SUPPORT "Build ITK Support" ON )
 
 if( ${ITK_SUPPORT} MATCHES "ON" )
-  find_package( ITK REQUIRED )
+  find_package( ITK 4.7 REQUIRED )
   include( ${ITK_USE_FILE} )
 
   set(HDF5_LIBRARIES itkhdf5 itkhdf5_cpp)
