@@ -131,6 +131,8 @@ if( ${ITK_SUPPORT} MATCHES "ON" )
   find_package( ITK REQUIRED )
   include( ${ITK_USE_FILE} )
 
+  set(HDF5_LIBRARIES itkhdf5 itkhdf5_cpp)
+
   add_definitions("-DSTATISMO_ITK_SUPPORT")
 
 else()
