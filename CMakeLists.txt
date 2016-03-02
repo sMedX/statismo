@@ -81,11 +81,6 @@ include( ModuleHeaderTest )
 find_package( Eigen3 REQUIRED )
 include_directories( ${EIGEN3_INCLUDE_DIR} )
 
-if( WIN32 )
-  # disable autolinking in boost
-  add_definitions(-DBOOST_ALL_NO_LIB)
-endif()
-
 set( REQUIRED_BOOST_COMPONENTS thread system date_time filesystem )
 
 option( BUILD_CLI_TOOLS "Build command-line tools" ON )
@@ -115,6 +110,11 @@ include_directories( ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
 add_definitions( -DBOOST_THREAD_VERSION=3 -DBOOST_FILESYSTEM_VERSION=3 )
 
+if( WIN32 )
+  # disable autolinking in boost
+  add_definitions(-DBOOST_ALL_NO_LIB)
+endif()
+
 option( ITK_SUPPORT "Build ITK Support" ON )
 
 if( ${ITK_SUPPORT} MATCHES "ON" )
@@ -123,7 +123,7 @@ if( ${ITK_SUPPORT} MATCHES "ON" )
 
   set(HDF5_LIBRARIES itkhdf5 itkhdf5_cpp)
 
-  add_definitions("-DSTATISMO_ITK_SUPPORT")
+  add_definitions(-DSTATISMO_ITK_SUPPORT)
 
 else()
   find_package( HDF5  COMPONENTS C CXX)
