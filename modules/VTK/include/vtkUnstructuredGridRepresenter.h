@@ -51,6 +51,9 @@
 #include "Domain.h"
 #include "vtkHelper.h"
 
+#include "StatismoVTKExport.h"
+
+
 /**
  * \brief A representer for vtkUnstructuredGrid using Procrustes alignment to align the datasets
  *
@@ -65,7 +68,7 @@
  *
  * See Representer for more details about representer classes
  */
-class vtkUnstructuredGridRepresenter  {
+class STATISMO_VTK_EXPORT vtkUnstructuredGridRepresenter  {
   public:
 
     /// The type of the data set to be used

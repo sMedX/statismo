@@ -49,6 +49,9 @@
 #include "Representer.h"
 #include "vtkHelper.h"
 
+#include "StatismoVTKExport.h"
+
+
 namespace statismo {
 
 
@@ -74,7 +77,7 @@ struct RepresenterTraits<vtkPolyData> {
  * See Representer for more details about representer classes
  * \sa Representer
  */
-class vtkStandardMeshRepresenter : public Representer<vtkPolyData> {
+class STATISMO_VTK_EXPORT vtkStandardMeshRepresenter : public Representer<vtkPolyData> {
   public:
 
 

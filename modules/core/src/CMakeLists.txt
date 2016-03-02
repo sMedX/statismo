@@ -9,6 +9,12 @@ set_target_properties( statismo_core PROPERTIES
   SOVERSION "${statismo_LIB_SOVERSION}"
 )
 
+include(GenerateExportHeader)
+generate_export_header(statismo_core EXPORT_FILE_NAME StatismoCoreExport.h)
+
+set(statismo_core_EXPORT_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR} CACHE INTERNAL "" FORCE)
+include_directories(${statismo_core_EXPORT_INCLUDE_DIR})
+
 install( TARGETS statismo_core
   EXPORT statismoTargets
   RUNTIME DESTINATION ${INSTALL_BIN_DIR}

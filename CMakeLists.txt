@@ -16,8 +16,6 @@ set(STATISMO_VERSION ${STATISMO_MAJOR_VERSION}.${STATISMO_MINOR_VERSION}.${STATI
 
 set( statismo_LIB_VERSION ${STATISMO_VERSION} )
 set( statismo_LIB_SOVERSION ${STATISMO_MAJOR_VERSION}.${STATISMO_MINOR_VERSION} )
-set( statismo_LIB_TYPE SHARED )
-
 
 # Setup build locations.
 if(NOT CMAKE_RUNTIME_OUTPUT_DIRECTORY)
@@ -117,14 +115,6 @@ include_directories( ${Boost_INCLUDE_DIRS} )
 link_directories( ${Boost_LIBRARY_DIRS} )
 add_definitions( -DBOOST_THREAD_VERSION=3 -DBOOST_FILESYSTEM_VERSION=3 )
 
-if(WIN32)
-  # On Windows, we can only build static libraries, as the dynamic libraries would be
-  # missing the accompanying .lib (unless the code is entirely rewritten with __declspec(dllexport) etc.)
-  # See http://www.cmake.org/Wiki/BuildingWinDLL
-
-  set(statismo_LIB_TYPE STATIC)
-endif()
-
 option( ITK_SUPPORT "Build ITK Support" ON )
 
 if( ${ITK_SUPPORT} MATCHES "ON" )
@@ -156,9 +146,14 @@ option( BUILD_SHARED_LIBS "Build shared libraries" ON )
 
 option( BUILD_EXAMPLES "Build examples" ON )
 
-
 option( BUILD_WRAPPING "Build Python Wrappers (experimental)" OFF )
 mark_as_advanced(BUILD_WRAPPING)
+
+if(BUILD_SHARED_LIBS)
+  set(statismo_LIB_TYPE SHARED)
+else()
+  set(statismo_LIB_TYPE STATIC)
+endif()
 
 add_subdirectory( modules )
 add_subdirectory( doc )
@@ -190,11 +185,12 @@ export(PACKAGE statismo)
 # for the build tree
 set( CONF_INCLUDE_DIRS
   "${statismo_SOURCE_DIR}/modules/core/include"
+  "${statismo_core_EXPORT_INCLUDE_DIR}"
 )
 set( statismo_LIBRARIES statismo_core )
 
 if( ${VTK_SUPPORT} )
-  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}" "${statismo_SOURCE_DIR}/modules/VTK/include" )
+  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}" "${statismo_SOURCE_DIR}/modules/VTK/include" "${statismo_VTK_EXPORT_INCLUDE_DIR}")
   set( statismo_LIBRARIES ${statismo_LIBRARIES} statismo_VTK )
 endif()
 
