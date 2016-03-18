@@ -211,7 +211,9 @@ if( ${VTK_SUPPORT} )
 endif()
 
 if( ${ITK_SUPPORT} )
-  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}" "${statismo_SOURCE_DIR}/modules/ITK/include" )
+  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}"
+    "${statismo_SOURCE_DIR}/modules/ITK/include"
+    "${statismo_SOURCE_DIR}/modules/ITK/cli/utils" )
 endif()
 
 configure_file( ${statismo_SOURCE_DIR}/statismoConfig.cmake.in
