@@ -155,6 +155,8 @@ else()
   set(statismo_LIB_TYPE STATIC)
 endif()
 
+include_directories(${CMAKE_BINARY_DIR})
+
 add_subdirectory( modules )
 add_subdirectory( doc )
 # -------------------------------------------------------------
@@ -165,12 +167,26 @@ configure_file( ${CMAKE_CURRENT_SOURCE_DIR}/scripts/run_astyle.sh.in
 )
 
 # -------------------------------------------------------------
+include(GenerateExportHeader)
 
 # Add all targets to the build-tree export set
 set( _targets statismo_core )
 
+generate_export_header(statismo_core EXPORT_FILE_NAME StatismoCoreExport.h)
+
+install(FILES
+  "${statismo_BINARY_DIR}/StatismoCoreExport.h"
+  DESTINATION ${INSTALL_INCLUDE_DIR}/statismo/core
+)
+
 if( VTK_SUPPORT )
   set( _targets ${_targets} statismo_VTK )
+  generate_export_header(statismo_VTK EXPORT_FILE_NAME StatismoVTKExport.h)
+
+  install(FILES
+    "${statismo_BINARY_DIR}/StatismoVTKExport.h"
+    DESTINATION ${INSTALL_INCLUDE_DIR}/statismo/VTK
+  )
 endif()
 
 export( TARGETS ${_targets}
