@@ -200,13 +200,13 @@ export(PACKAGE statismo)
 # -------------------------------------------------------------
 # for the build tree
 set( CONF_INCLUDE_DIRS
+  "${statismo_BINARY_DIR}"
   "${statismo_SOURCE_DIR}/modules/core/include"
-  "${statismo_core_EXPORT_INCLUDE_DIR}"
 )
 set( statismo_LIBRARIES statismo_core )
 
 if( ${VTK_SUPPORT} )
-  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}" "${statismo_SOURCE_DIR}/modules/VTK/include" "${statismo_VTK_EXPORT_INCLUDE_DIR}")
+  set( CONF_INCLUDE_DIRS "${CONF_INCLUDE_DIRS}" "${statismo_SOURCE_DIR}/modules/VTK/include" )
   set( statismo_LIBRARIES ${statismo_LIBRARIES} statismo_VTK )
 endif()
 
