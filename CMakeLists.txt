@@ -113,6 +113,7 @@ add_definitions( -DBOOST_THREAD_VERSION=3 -DBOOST_FILESYSTEM_VERSION=3 )
 if( WIN32 )
   # disable autolinking in boost
   add_definitions(-DBOOST_ALL_NO_LIB)
+  add_definitions(-DBOOST_ALL_DYN_LINK)
 endif()
 
 option( ITK_SUPPORT "Build ITK Support" ON )
